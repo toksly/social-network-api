@@ -50,9 +50,10 @@ exports.UpdateUserById = async (req, res) => {
 	//await users.splice(index, 1, updatedUser);
 	users[index].id = await parseInt(param);
 
-	for (item in body) {
-		console.log(item);
-		users[index].item = item;
+	for (const [key, value] of Object.entries(body)) {
+		//console.log(`${key}: ${value}`);
+		let user = users[index];
+		user[key] = value;
 	}
 
 	res.json({ message: "User Updated!" });
