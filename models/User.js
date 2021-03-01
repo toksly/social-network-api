@@ -17,7 +17,7 @@ const UserSchema = new mongoose.Schema({
 	},
 	thoughts: [{ type: ObjectId, ref: "Thought" }],
 
-	friends: [{ type: ObjectId, ref: "User" }],
+	friends: [],
 });
 
 const User = mongoose.model("User", UserSchema);

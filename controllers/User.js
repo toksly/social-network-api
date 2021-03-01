@@ -1,14 +1,14 @@
 // const Users = [
 // 	{
 // 		id: 1,
-// 		username: "Silvester",
+// 		username: "Sylvester",
 // 		email: "silvester@gmail.com",
 // 		thoughts: ["1", "2", "5"],
 // 		friends: ["1", "2", "5"],
 // 	},
 // 	{
 // 		id: 2,
-// 		username: "Janvier",
+// 		username: "Jane",
 // 		email: "silvester@gmail.com",
 // 		thoughts: ["1", "2", "5"],
 // 		friends: ["1", "2", "5"],
@@ -122,3 +122,34 @@ exports.CreateNewUser = async (req, res) => {
 		res.json({ message: "new user has been created!" });
 	});
 };
+// add friend to list
+exports.AddFriend = (req, res) => {
+	User.findOneAndUpdate(
+		req.body.userId,
+		{ $push: { friends: req.body.friendId } },
+		{ new: true }
+	)
+		.then((data) => {
+			res.json(data);
+		})
+		.catch((err) => {
+			res.status(400).json({ error: "Failed" });
+		});
+};
+// remove friend from list
+exports.RemoveFriend = (req, res) => {
+	User.findOneAndUpdate(
+		req.body.userId,
+		{ $pull: { friends: req.body.friendId } },
+		{ new: true }
+	)
+		.then((data) => {
+			res.json(data);
+		})
+		.catch((err) => {
+			console.log(err);
+			res.status(400).json(err);
+		});
+};
+
+
