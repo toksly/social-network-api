@@ -82,3 +82,41 @@ exports.updateThoughtById = (req, res) => {
 			res.status(400).json(err);
 		});
 };
+
+//Reactions controller
+
+//create reaction
+exports.CreateReaction = (req, res) => {
+	let newReaction = {
+		reactionBody: req.body.reactionBody,
+		username: req.body.username,
+	};
+	Thought.findByIdAndUpdate(
+		req.body.thoughtId,
+		{ $push: { reactions: newReaction } },
+		{ new: true }
+	)
+		.then((data) => {
+			res.status(200).json(data);
+		})
+		.catch((err) => {
+			res.status(400).json(err);
+		});
+};
+
+//delete reactions
+
+exports.RemoveReaction = (req, res) => {
+	Thought.findOneAndUpdate(
+		req.body.thoughtId,
+		{ $pull: { reactions: { _id: req.body.reactionId } } },
+		{ new: true }
+	)
+		.then((data) => {
+			res.json(data);
+		})
+		.catch((err) => {
+			console.log(err);
+			res.status(400).json(err);
+		});
+};

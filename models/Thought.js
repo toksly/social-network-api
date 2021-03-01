@@ -17,15 +17,15 @@ const thoughtSchema = new mongoose.Schema({
 	},
 
 	reactions: [
-		{	
-			reactionId: { type: ObjectId, default: new ObjectIdType},
+		{
+			//reactionId: { type: ObjectId, default: new ObjectIdType},
 
 			reactionBody: {
 				type: String,
 				required: true,
 				length: { max: 280 },
 			},
-			
+
 			username: {
 				type: String,
 				trim: true,
