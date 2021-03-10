@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const port = process.env.PORT || 8080;
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/User");
 const thoughtRoutes = require("./routes/Thought");
+require("dotenv").config();
+
+const port = process.env.PORT || 8080;
 
 //middleware
 app.use(bodyParser.json());
@@ -16,8 +18,7 @@ app.use("/api", thoughtRoutes);
 // app.listen(3000);
 
 //connect to mongodb database
-const DB_url = "mongodb://localhost:27017/social_network_db";
-mongoose.connect(DB_url, {
+mongoose.connect(process.env.DB_url, {
 	useNewUrlParser: "true",
 });
 
